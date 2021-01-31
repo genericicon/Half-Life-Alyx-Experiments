@@ -118,9 +118,11 @@ function DoorSwing()
     if door ~= nil then
     dooropen = true
     soldier:SetGraphParameterBool("b_kick_obstruction",false)
+        
         door:SetThink(function() return KickEnder(door) end, "KickEnder", 1)
         function KickEnder()
             EntFireByHandle(thisEntity,door, "setspeed", "100")
+            EntFireByHandle(thisEntity,door,"detachdoor")
             return nil
         end
        
@@ -151,7 +153,7 @@ function ShootDoorOpen()
     dooropen = true
     soldier:SetGraphParameterBool("b_firing", true)
     soldier:SetThink(function() return ShootEnder(soldier) end, "firing", 1.5)
-    soldier:EmitSound("vo.combine.grunt.announceattack_grenade_09")
+    EntFireByHandle(thisEntity,thisEntity,"speakresponseconcept", "COMBINESOLDIER_FLUSHINGENEMY")
     function ShootEnder()
         
         EntFireByHandle(thisEntity,door, "setspeed", "1000")
@@ -169,7 +171,7 @@ function DoorKicker()
     soldier:SetGraphParameterBool("b_kick_obstruction", true)
 
     dooropen = true
-    soldier:EmitSound("vo.combine.grunt.announceattack_grenade_09")
+    EntFireByHandle(thisEntity,thisEntity,"speakresponseconcept", "COMBINESOLDIER_FLUSHINGENEMY")
     soldier:SetThink(function() return KickEnder(soldier) end, "kick_obstruction", 1)
     function KickEnder()
         EntFireByHandle(thisEntity,door, "setspeed", "1000")
@@ -226,21 +228,22 @@ function DoorCheckOpen()
             print(unpack(originalposition),"THIS IS ORIGINAL POS")
         end
     else
-        local currentPosition = (math.floor(door:GetAngles().y))
-        local AngleDifference = AngleDiff(originalposition[uni], currentPosition)
-                print(AngleDifference)
-        if AngleDifference == 90 or AngleDifference == -90  then 
-            table.insert(DOORSTATUSTABLE, uni, OPEN)
-            dooropen = true
-            print(unpack(DOORSTATUSTABLE))
-            print(dooropen)
-        else
-            dooropen = false
-            table.insert(DOORSTATUSTABLE, uni, CLOSED)
-            print(unpack(DOORSTATUSTABLE))
-            print(dooropen)
-        end 
-        
+        if originalposition[uni] ~= nil and door ~= nil then
+            local currentPosition = (math.floor(door:GetAngles().y))
+            local AngleDifference = AngleDiff(originalposition[uni], currentPosition)
+                    print(AngleDifference)
+            if AngleDifference == 90 or AngleDifference == -90  then 
+                table.insert(DOORSTATUSTABLE, uni, OPEN)
+                dooropen = true
+                print(unpack(DOORSTATUSTABLE))
+                print(dooropen)
+            else
+                dooropen = false
+                table.insert(DOORSTATUSTABLE, uni, CLOSED)
+                print(unpack(DOORSTATUSTABLE))
+                print(dooropen)
+            end 
+        end
         
     
     end
