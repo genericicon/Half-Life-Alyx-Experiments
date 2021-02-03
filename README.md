@@ -1,4 +1,4 @@
-# Half-Life-Alyx-Vscript-Experiments
+# Half-Life-Alyx-Experiments
 Large amount of experimental vscripts that I've made in Half Life Alyx
 
 Note: Much of this code is a mess
