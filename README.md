@@ -1,5 +1,5 @@
 # Half-Life-Alyx-Experiments
-Large amount of experimental vscripts that I've made in Half Life Alyx
+Large amount of experimental vscripts that I've made in Half Life Alyx in addition to some prefabs
 
 Note: Much of this code is a mess
 
